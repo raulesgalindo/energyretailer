@@ -11,3 +11,7 @@ cd energyretailer && mvn clean install -DskipTests=true
 ```bash
 docker compose up
 ```
+
+## Requirements
+
+Java 11, Maven (3.8.2+)
