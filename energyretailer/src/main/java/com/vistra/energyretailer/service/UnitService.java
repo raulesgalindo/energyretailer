@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
@@ -25,7 +26,7 @@ public class UnitService {
         this.unitRepository = unitRepository;
     }
 
-    public Page<Unit> getUnits(String name, String unitStartDate, String unitEndDate, String unitTypeCode, Boolean draft, String unitIdentifier, String marketCode, int pageSize, int pageNo) {
+    public Page<Unit> getUnits(String name, String unitStartDate, String unitEndDate, String unitTypeCode, Boolean draft, String unitIdentifier, int pageSize, int pageNo) {
         Specification<Unit> specification = (root, query, criteriaBuilder) -> {
             // Initialize predicates list
             List<Predicate> predicates = new ArrayList<>();
@@ -48,13 +49,6 @@ public class UnitService {
             }
             if (!StringUtils.isEmpty(unitIdentifier)) {
                 predicates.add(criteriaBuilder.equal(root.get("unitIdentifier"), unitIdentifier));
-            }
-            // Add marketCode filter using join
-            if (!StringUtils.isEmpty(marketCode)) {
-                Join<Unit, MarketDesignation> marketJoin = root.join("marketDesignations");
-                predicates.add(criteriaBuilder.equal(marketJoin.get("market").get("code"), marketCode));
-                // Add filter for current date
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(marketJoin.get("effectiveDate"), LocalDate.now()));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

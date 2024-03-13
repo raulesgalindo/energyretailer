@@ -2,9 +2,11 @@
 
 ## Compile
 
+
 ```bash
 cd energyretailer && mvn clean install -DskipTests=true
 ```
+Note: If you want to run it with docker change the energyretailer/src/main/resources/application.yaml so it point to energy-retailer-db instead of localhost
 
 ## Run with docker
 
@@ -14,4 +16,4 @@ docker compose up
 
 ## Requirements
 
-Java 11, Maven (3.8.2+)
+Java 11, Maven (3.8.2+), Postgres 14+
