@@ -1,0 +1,13 @@
+# Energy Retailers
+
+## Compile
+
+```bash
+cd energyretailer && mvn clean install -DskipTests=true
+```
+
+## Run with docker
+
+```bash
+docker compose up
+```

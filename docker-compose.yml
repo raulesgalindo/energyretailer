@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  energy-retailer-api:
+    build:
+      dockerfile: ./docker-compose/energy-retailer-api/Dockerfile
+    hostname: energy-retailer-api
+    image: energy-retailer-api
+    container_name: energy-retailer-api
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - er-network
+
+  energy-retailer-db:
+    image: postgres:12
+    hostname: energy-retailer-db
+    container_name: energy-retailer-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker-compose/energy-retailer-db:/docker-entrypoint-initdb.d
+      - ./docker-compose/postgres-data:/var/lib/postgresql/data
+    networks:
+      - er-network
+
+networks:
+  er-network:
+    driver: bridge

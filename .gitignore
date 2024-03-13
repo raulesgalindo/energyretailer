@@ -1,0 +1,4 @@
+docker-compose/postgres-data
+energyretailer/.idea
+energyretailer/.mvn
+energyretailer/target

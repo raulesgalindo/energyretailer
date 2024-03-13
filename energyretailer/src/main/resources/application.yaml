@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user?currentSchema=master
+    username: user
+    password: pass
+  jpa:
+    show-sql: true
